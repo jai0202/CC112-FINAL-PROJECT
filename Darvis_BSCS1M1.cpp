@@ -3,7 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <conio.h>
-
+#include <math.h>
+#define PI 3.14159265
 
 void loading(){
     printf("\n\n\t\033[1;32mDarvis is preparing your next screen");
@@ -19,42 +20,73 @@ int main (){
     char name[50];
     int a,b,choice,subChoice; 
 	float c,d,r,pi=3.14159,temp,kelvin,celsius,fahrenheit,weight,kilogram,gram,milligram,length,meter,centimeter,millimeter;
-	
 
-    
-    for(int i=0; i<5; i++){
-        Sleep(10);
-    printf("\n\n");
-	printf("\t\t\033[1;32mDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDV  	  DVDVDVDV     DVDVDVDV     DVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDV    DVDVDV    DVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDV    DVDVDV    DVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDV    DVDVDV    DVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDVDV    DV    DVDVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDVDV    DV    DVDVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDVDVDV       DVDVDVDVDDVDV\n");
-	printf("\t\tDVDVDV	          DVDVDVDVDVDVDV      DVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n\n\n");
-	printf("\n\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDV  	  DVDVDVDV     DVDVDVDV     DVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDV    DVDVDV    DVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDV    DVDVDV    DVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDV    DVDVDV    DVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDVDV    DV    DVDVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDVDV    DV    DVDVDVDVDVDV\n");
-	printf("\t\tDVDVDV	    DVDVDV    DVDVDVDVDV       DVDVDVDVDDVDV\n");
-	printf("\t\tDVDVDV	          DVDVDVDVDVDVDV      DVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
-	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\033[0m\n\n\n");
+        HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    char screen[25][81];
+    char symbols[] = "@#$*+=-:. ";
+
+    double angle, radius;
+    int x, y;
+
+    int centerX = 40;
+    int centerY = 11;
+
+    CONSOLE_CURSOR_INFO cursor;
+    GetConsoleCursorInfo(h, &cursor);
+
+    cursor.bVisible = FALSE;
+    SetConsoleCursorInfo(h, &cursor);
+
+    system("cls");
+
+    // Swirl animation for 1 second
+    for (int frame = 0; frame < 25; frame++) {
+
+        for (int row = 0; row < 25; row++) {
+            for (int col = 0; col < 80; col++) {
+                screen[row][col] = ' ';
+            }
+            screen[row][80] = '\0';
+        }
+
+        for (int arm = 0; arm < 3; arm++) {
+
+            for (radius = 0.5; radius <= 9.5; radius += 0.025) {
+
+                angle = (radius * 0.85)
+                      + (frame * 0.12)
+                      + (arm * 2 * PI / 3);
+
+                x = centerX + (int)(radius * 2 * cos(angle));
+                y = centerY + (int)(radius * sin(angle));
+
+                if (x >= 0 && x < 80 &&
+                    y >= 0 && y < 25) {
+
+                    int shade = (int)(radius * 1.2) % 9;
+                    screen[y][x] = symbols[shade];
+                }
+            }
+        }
+
+        COORD pos = {0, 0};
+        SetConsoleCursorPosition(h, pos);
+
+        SetConsoleTextAttribute(h, 7);
+
+        for (int row = 0; row < 25; row++) {
+            printf("%s\n", screen[row]);
+        }
+
+        Sleep(40);
     }
+
+    system("cls");
+
+    cursor.bVisible = TRUE;
+    SetConsoleCursorInfo(h, &cursor);
+
     system("cls");
     
     printf("\n\n");
