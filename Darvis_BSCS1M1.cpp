@@ -40,7 +40,7 @@ int main (){
 
     system("cls");
 
-    // Swirl animation for 1 second
+    // Loading
     for (int frame = 0; frame < 25; frame++) {
 
         for (int row = 0; row < 25; row++) {
@@ -88,7 +88,7 @@ int main (){
     SetConsoleCursorInfo(h, &cursor);
 
     system("cls");
-    
+    start:
     printf("\n\n");
 	printf("\t\t\033[1;32mDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
 	printf("\t\tDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDVDV\n");
@@ -109,7 +109,7 @@ int main (){
     printf("              Hello, I am \033[1;32mDarvis\033[0m! I will be your assistant.                   \n");
     printf("       My role is to guide you through the program and fulfill your needs.    \n");
     printf("      ------------------------------------------------------------------------\n");   
-	start:
+	
 	printf("                Please Enter your name : ");
 	fgets(name, sizeof(name), stdin);
 	
